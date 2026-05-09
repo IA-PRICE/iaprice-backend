@@ -3,9 +3,9 @@ spring:
     name: iaprice-backend
 
   datasource:
-    url: jdbc:postgresql://aws-0-eu-west-1.pooler.supabase.com:5432/postgres?sslmode=require
-    username: postgres.scfofarcqvtjhvwsgwcm
-    password: WPMxWO2qsDP96pDS
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://aws-0-eu-west-1.pooler.supabase.com:5432/postgres?sslmode=require}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres.scfofarcqvtjhvwsgwcm}
+    password: ${SPRING_DATASOURCE_PASSWORD:WPMxWO2qsDP96pDS}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5
@@ -30,8 +30,8 @@ server:
 
 # ── JWT ──────────────────────────────────────────
 jwt:
-  secret: CHANGE_ME_MIN_32_CHARS_SECRET_KEY_HERE   # à remplacer par une vraie clé en prod
-  expiration: 86400                                  # 24h en secondes
+  secret: ${JWT_SECRET:CHANGE_ME_MIN_32_CHARS_SECRET_KEY_HERE}  # à remplacer par une vraie clé en prod
+  expiration: ${JWT_EXPIRATION:86400}                           # 24h en secondes
 
 # ── Logging ──────────────────────────────────────
 logging:
