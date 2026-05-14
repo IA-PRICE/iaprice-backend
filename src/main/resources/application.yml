@@ -39,3 +39,8 @@ logging:
     ma.iaprice: DEBUG
     org.springframework.security: INFO
     org.flywaydb: INFO
+
+
+cors:
+  allowed-origins: http://localhost:4200,http://app.144.91.85.247.sslip.io
+
