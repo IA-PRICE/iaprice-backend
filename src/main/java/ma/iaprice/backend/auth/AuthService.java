@@ -48,10 +48,18 @@ public class AuthService {
                 .build();
         user = userRepository.save(user);
 
-        // 3. Créer l'Organization
+        // 3. Créer l'Organization avec slug unique
+        String baseSlug = generateSlug(req.organizationName());
+        String slug = baseSlug;
+
+        // Si slug existe déjà → ajouter suffixe aléatoire court
+        if (orgRepository.existsBySlug(slug)) {
+            slug = baseSlug + "-" + java.util.UUID.randomUUID().toString().substring(0, 6);
+        }
+
         Organization org = Organization.builder()
                 .name(req.organizationName())
-                .slug(generateSlug(req.organizationName()))
+                .slug(slug)
                 .sector(req.sector() != null ? req.sector() : "autre")
                 .build();
         org = orgRepository.save(org);

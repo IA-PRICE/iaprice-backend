@@ -2,6 +2,7 @@ package ma.iaprice.backend.shared;
 
 import ma.iaprice.backend.shared.exception.EmailAlreadyExistsException;
 import ma.iaprice.backend.shared.exception.InvalidCredentialsException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -54,5 +55,12 @@ public class GlobalExceptionHandler {
     // ── Helper ───────────────────────────────────────────────
     private Map<String, String> error(String code, String message) {
         return Map.of("code", code, "message", message);
+    }
+
+    // ── 409 : contrainte unique BDD (filet de sécurité) ─────────
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Map<String, String>> handleDataIntegrity(DataIntegrityViolationException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(error("CONFLICT", "Une ressource avec ces informations existe déjà."));
     }
 }
