@@ -45,7 +45,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 String role = jwtTokenProvider.getRole(token);
 
                 User user = userRepository.findById(userId).orElse(null);
-                if (user != null && user.isActive()) {
+                if (user != null && user.getIsActive()) {
                     UserPrincipal principal = new UserPrincipal(user, orgId, role);
 
                     // Spring Security

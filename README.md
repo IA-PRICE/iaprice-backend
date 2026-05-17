@@ -87,3 +87,20 @@ Header: Authorization: Bearer <token>
 - [ ] Ajouter ConfigurationPropertiesScan dans la classe principale (pour JwtConfig)
 - [ ] Ajouter @EnableConfigurationProperties si besoin
 - [ ] Mettre la vraie secret key JWT (min 32 chars) dans une variable d'env Railway
+
+
+
+# Module 2 — Catalogue · Fichiers générés
+#
+## Points d'attention
+
+1. **multi-tenant** : `TenantContext.getOrgId()` utilisé dans chaque service — alimenté par `JwtAuthFilter` existant. Rien à modifier côté sécurité.
+
+2. **Migration Flyway** : s'exécute automatiquement au démarrage.
+
+3. **`Product.setActive()`** : Le champ `isActive` est un `boolean` primitif dans Lombok. Le setter généré est `setActive(boolean)` — c'est normal, utilisez `p.setActive(true)`.
+
+4. **Tri** : `ProductRepository.findByFilters` délègue le tri au `Pageable` Spring. Colonnes triables API → JPA : `name`, `brand`, `myPrice`.
+
+5. **Import synchrone** : La spec dit traitement synchrone (HTTP 200 direct). Pour des fichiers >1000 lignes en prod, envisager un job asynchrone plus tard.
+

@@ -37,7 +37,7 @@ public class Organization extends BaseEntity {
 
     @Column(name = "is_active", nullable = false)
     @Builder.Default
-    private boolean isActive = true;
+    private Boolean isActive = Boolean.TRUE;
 
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)

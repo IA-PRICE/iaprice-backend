@@ -1,0 +1,3 @@
+ALTER TABLE products
+ALTER COLUMN ean TYPE VARCHAR(50) USING ean::text,
+    ALTER COLUMN sku TYPE VARCHAR(100) USING sku::text;
